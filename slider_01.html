@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> 照片牆展示切換 </title> <!-- 5-16 -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/slider_01.css">
+</head>
+<body>
+    <div id="app">
+        <a id="angleleft"><i class="fas fa-angle-left fa-5x"></i></a>
+        <a id="angleright"><i class="fas fa-angle-right fa-5x"></i></a>
+        <div id="contentPhone"></div>
+        <div class="menu">
+            <nav>
+                <a class="a1"><img src="/img/small/a1.jpg" alt=""></a>
+                <a class="a2"><img src="/img/small/a2.jpg" alt=""></a>
+                <a class="a3"><img src="/img/small/a3.jpg" alt=""></a>
+                <a class="a4"><img src="/img/small/a4.jpg" alt=""></a>
+                <a class="a5"><img src="/img/small/a5.jpg" alt=""></a>
+            </nav>
+        </div>
+    </div>
+    <!-- <script src="./js/05-16.js"></script> -->
+    <script>
+        const contentPhone = document.querySelector("#contentPhone")
+        const a1= document.querySelector(".a1");
+        const a2= document.querySelector(".a2");
+        const a3= document.querySelector(".a3");
+        const a4= document.querySelector(".a4");
+        const a5= document.querySelector(".a5");
+        const left = document.querySelector("#angleleft");
+        const right = document.querySelector("#angleright");
+        let pageIdx = 1;
+
+        function photoChoose(){ 
+            pageIdx = parseInt(this.className.substr(1,1));  //this.className原本是ax，用substr(1)來消除a留下數字
+            console.log(typeof(pageIdx))
+            contentPhone.style.backgroundImage = `url(/img/big/a${pageIdx}.jpg)`;
+            console.log(pageIdx)
+        }
+        function arrowNextChoose(){
+            pageIdx += 1;
+            if(pageIdx>5){
+                pageIdx=1 
+            } 
+            contentPhone.style.backgroundImage = `url(/img/big/a${pageIdx}.jpg)`;
+        }
+
+        function arrowPrevChoose(){
+            pageIdx -= 1;
+            if(pageIdx<1){
+                pageIdx=5
+            } 
+            contentPhone.style.backgroundImage = `url(/img/big/a${pageIdx}.jpg)`;
+        }
+       
+        a1.addEventListener("click", photoChoose);
+        a2.addEventListener("click", photoChoose);
+        a3.addEventListener("click", photoChoose);
+        a4.addEventListener("click", photoChoose);
+        a5.addEventListener("click", photoChoose);
+
+        left.addEventListener("click", arrowPrevChoose)
+        right.addEventListener("click", arrowNextChoose)
+
+
+    </script>
+</body>
+</html>

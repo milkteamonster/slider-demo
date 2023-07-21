@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> 照片牆自動展示切換 </title> <!-- 10-4 -->
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/slider_03_auto-play.css">
+</head>
+<body>
+    <style>
+        #contentPhone{
+            transition: all 2.5s ease-in-out;
+        }
+    </style>
+    <div id="app">
+        <ul>
+            <li>function區分</li>
+            <li>for迴圈運用</li>
+            <li>setInterval運用</li>
+        </ul>
+        <div id="contentPhone"></div>
+        <div class="menu">
+            <nav class="list">
+                <a class="a1"><img src="/img/small/a1.jpg" alt=""></a>
+                <a class="a2"><img src="/img/small/a2.jpg" alt=""></a>
+                <a class="a3"><img src="/img/small/a3.jpg" alt=""></a>
+                <a class="a4"><img src="/img/small/a4.jpg" alt=""></a>
+                <a class="a5"><img src="/img/small/a5.jpg" alt=""></a>
+            </nav>
+        </div>
+        
+    </div>
+    <script>
+        const contentPhone = document.querySelector("#contentPhone")
+        const a1= document.querySelector(".a1");
+        const a2= document.querySelector(".a2");
+        const a3= document.querySelector(".a3");
+        const a4= document.querySelector(".a4");
+        const a5= document.querySelector(".a5");
+        const list = document.querySelector(".list");
+        let pageIdx = 1;
+        let timeBox = null;
+        
+        a1.addEventListener("click", photoChoose);
+        a2.addEventListener("click", photoChoose);
+        a3.addEventListener("click", photoChoose);
+        a4.addEventListener("click", photoChoose);
+        a5.addEventListener("click", photoChoose);
+
+        function photoChoose(){ 
+            pageIdx = parseInt(this.className.substr(1,1));  //this.className原本是ax，用substr(1)來消除a留下數字
+            // console.log(typeof(pageIdx))
+            contentPhone.style.backgroundImage = `url(/img/big/a${pageIdx}.jpg)`;
+            // console.log(pageIdx)
+            menuOpacity();
+            clearInterval(timeBox);
+            timeGo();
+        }
+        function menuOpacity(){
+            for (let i =1; i< 6; i++){
+                document.querySelector(".a"+i).style.opacity = 0.5;
+            }
+            // 這個寫法不行  this.style.opacity =1;
+            document.querySelector(".a"+pageIdx).style.opacity = 1;
+        }
+        
+        function timeGo(){ 
+          timeBox = setInterval(()=>{
+                  pageIdx+=1;
+                  if(pageIdx>5){
+                    pageIdx = 1;
+                  }
+                  menuOpacity();
+                  contentPhone.style.backgroundImage = `url(/img/big/a${pageIdx}.jpg)`;
+            },2000);
+        }
+        timeGo();
+
+    </script>
+    <!-- <script src="./js/10-4.js"></script> -->
+</body>
+</html>
