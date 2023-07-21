@@ -67,16 +67,19 @@
         }
         
         function timeGo(){ 
-          timeBox = setInterval(()=>{
+          timeBox = setInterval(function(){
                   pageIdx+=1;
                   if(pageIdx>5){
                     pageIdx = 1;
-                  }
-                  menuOpacity();
+                  };
                   contentPhone.style.backgroundImage = `url(/img/big/a${pageIdx}.jpg)`;
+                  menuOpacity();
             },2000);
         }
+
+        //沒有以下這兩行好像也會正常執行 加的意義是....?
         timeGo();
+        document.querySelector(".a"+pageIdx).style.opacity = 1;
 
     </script>
     <!-- <script src="./js/10-4.js"></script> -->
